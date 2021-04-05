@@ -1,4 +1,4 @@
-.popup__form-item {
+.form__item {
     padding: 0 0 9px 0;
     width: calc(100% - 2*20px);
     font-size: 12px;
@@ -12,16 +12,16 @@
     color: #000000;
 }
 
-.popup__form-item:last-of-type {
+.form__item:last-of-type {
     margin: 0;
 }
 
-.popup__form-item:focus {
+.form__item:focus {
     outline: none;
 }
 
 @media screen and (min-width: 768px) {
-    .popup__form-item {
+    .form__item {
         width: calc(100% - 2*36px);
         font-size: 14px;
         line-height: calc(17/14*100%);

@@ -4,6 +4,8 @@ import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
+import Login from './Login';
+import Register from './Register';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -143,10 +145,10 @@ function App() {
                             onCardDelete={handleCardDelete}/>
                     </Route>
                     <Route path="/sign-in">
-                        {/* <Login/> */}
+                        <Login/>
                     </Route>
                     <Route path="/sign-up">
-                        {/* <Register/> */}
+                        <Register/>
                     </Route>
                 </Switch>
                 <Footer/>

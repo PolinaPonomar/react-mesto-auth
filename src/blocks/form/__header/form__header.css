@@ -1,4 +1,4 @@
-.popup__header {
+.form__header {
     margin: 30px 0 30px;
     width: calc(100% - 2*20px);
     font-style: normal;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .popup__header {
+    .form__header {
         margin: 34px 0 48px 0;
         width: calc(100% - 2*36px);
         font-size: 24px;

@@ -49,11 +49,13 @@
 @import url(./blocks/popup/_image/popup_image.css);
 @import url(./blocks/popup/__container/popup__container.css);
 @import url(./blocks/popup/__close-button/popup__close-button.css);
-@import url(./blocks/popup/__form/popup__form.css);
-@import url(./blocks/popup/__header/popup__header.css);
-@import url(./blocks/popup/__form-item/popup__form-item.css);
-@import url(./blocks/popup/__form-item-error/popup__form-item-error.css);
-@import url(./blocks/popup/__save-button/popup__save-button.css);
-@import url(./blocks/popup/__save-button/_invalid/popup__save-button_invalid.css);
 @import url(./blocks/popup/__photo/popup__photo.css);
 @import url(./blocks/popup/__photo-name/popup__photo-name.css);
+
+/* form */
+@import url(./blocks/form/form.css);
+@import url(./blocks/form/__header/form__header.css);
+@import url(./blocks/form/__item/form__item.css);
+@import url(./blocks/form/__item-error/form__item-error.css);
+@import url(./blocks/form/__save-button/form__save-button.css);
+@import url(./blocks/form/__save-button/_invalid/form__save-button_invalid.css);

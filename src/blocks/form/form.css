@@ -1,4 +1,4 @@
-.popup__form {
+.form {
     width: 240px;
     display: flex;
     flex-direction: column;
@@ -8,12 +8,12 @@
     border-radius: 10px;
 }
 
-.popup__form:hover {
+.form:hover {
     cursor: default; 
 }
 
 @media screen and (min-width: 768px) {
-    .popup__form {
+    .form {
         width: 430px;
     }
 }

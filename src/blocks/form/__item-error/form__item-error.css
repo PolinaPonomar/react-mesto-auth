@@ -1,4 +1,4 @@
-.popup__form-item-error {
+.form__item-error {
     padding: 5px 0 0;
     width: calc(100% - 2*20px);
     display: flex;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .popup__form-item-error {
+    .form__item-error {
         width: calc(100% - 2*36px);
     }
 }
