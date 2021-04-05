@@ -1,0 +1,7 @@
+.card__photo-info {
+    margin: 0 15px 0 21px;
+    padding: 22px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+}

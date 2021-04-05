@@ -1,0 +1,9 @@
+.popup__photo {
+    max-height: 75vh;
+    max-width: 75vw;
+    object-fit: cover;
+}
+
+.popup__photo:hover {
+    cursor: default; 
+}

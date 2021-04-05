@@ -1,0 +1,27 @@
+.profile__avatar-wrapper {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile__avatar-wrapper::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgb(0, 0, 0);
+    opacity: 0;
+}
+
+.profile__avatar-wrapper:hover::before {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.profile__avatar-wrapper:hover .profile__avatar-change {
+    opacity: 1;
+    cursor: pointer;
+}

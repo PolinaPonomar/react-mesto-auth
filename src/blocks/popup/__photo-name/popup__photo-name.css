@@ -1,0 +1,13 @@
+.popup__photo-name {
+    margin: 12px 0 0;
+    max-width: 75vw;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: calc(15/12*100%);
+    color: #FFFFFF;
+}
+
+.popup__photo-name:hover {
+    cursor: default; 
+}

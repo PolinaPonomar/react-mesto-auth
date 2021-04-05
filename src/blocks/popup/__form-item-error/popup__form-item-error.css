@@ -1,0 +1,18 @@
+.popup__form-item-error {
+    padding: 5px 0 0;
+    width: calc(100% - 2*20px);
+    display: flex;
+    min-height: 30px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__form-item-error {
+        width: calc(100% - 2*36px);
+    }
+}

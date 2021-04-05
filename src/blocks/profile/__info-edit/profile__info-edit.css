@@ -1,0 +1,12 @@
+.profile__info-edit {
+    display: grid;
+    grid-template-columns: repeat(2,auto);
+    column-gap: 10px;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .profile__info-edit {
+        column-gap: 18px;
+    }
+}

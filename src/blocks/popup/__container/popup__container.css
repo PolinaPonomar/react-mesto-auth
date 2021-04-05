@@ -1,0 +1,8 @@
+.popup__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup__container:hover {
+    cursor: pointer; 
+}
