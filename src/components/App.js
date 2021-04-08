@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import * as auth from '../utils/auth.js';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import ProtectedRoute from './ProtectedRoute';
@@ -60,6 +61,18 @@ function App() {
         setSelectedCard({isOpen: false});
     }
 
+    // блок работы с регистрацией, аутентификацией и авторизацией
+    function handleRegister (inputs) {
+        auth.register(inputs)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    // блок работы после авторизации
     function handleUpdateUser (inputs) {
         api.setUserInfo(inputs)
             .then((updateUser) => {
@@ -154,7 +167,7 @@ function App() {
                         <Login/>
                     </Route>
                     <Route path="/sign-up">
-                        <Register/>
+                        <Register onRegister={handleRegister}/>
                     </Route>
                     <Route> {/* если переходит по любому пути? */}
                         {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
