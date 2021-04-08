@@ -5,6 +5,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import ProtectedRoute from './ProtectedRoute';
 import Header from './Header';
 import Main from './Main';
+import Footer from './Footer';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
@@ -159,6 +160,7 @@ function App() {
                         {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
                     </Route>
                 </Switch>
+                <Footer/>
 
                 <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={true} onClose={closeAllPopups}/> {/* откуда брать перменную об саксессе? */}
 
