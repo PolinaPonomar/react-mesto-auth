@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ProtectedRoute from './ProtectedRoute';
 import Header from './Header';
 import Main from './Main';
 import Login from './Login';
 import Register from './Register';
-import Footer from './Footer';
+import InfoTooltip from './InfoTooltip';
 import PopupWithForm from './PopupWithForm';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
@@ -15,6 +16,8 @@ import ImagePopup from './ImagePopup';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [isInfoTooltipOpen,setIsInfoTooltipOpen] = useState(false); //описать, когда открывать
+
     const [currentUser, setCurrentUser] = useState({});
     const [isEditAvatarPopupOpen,setIsEditAvatarPopupOpen] = useState(false);
     const [isEditProfilePopupOpen,setIsEditProfilePopupOpen] = useState(false);
@@ -49,10 +52,10 @@ function App() {
         setSelectedCard({isOpen: true, link: card.link,name: card.name });
     };
     const closeAllPopups = () => {
+        setIsInfoTooltipOpen(false);
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
-
         setSelectedCard({isOpen: false});
     }
 
@@ -132,26 +135,32 @@ function App() {
     return (
         < CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header/>
+                <Header loggedIn={loggedIn}/>
                 <Switch>
-                    <Route exact path="/"> 
-                        {!loggedIn && <Redirect to="/sign-in" /> }
-                        <Main onEditAvatar={handleEditAvatarClick}
-                            onEditProfile={handleEditProfileClick}
-                            onAddPlace={handleAddPlaceClick} 
-                            onCardClick={handleCardClick}
-                            cards={cards}
-                            onCardLike={handleCardLike}
-                            onCardDelete={handleCardDelete}/>
-                    </Route>
+                    <ProtectedRoute
+                        exact path="/"
+                        loggedIn={loggedIn}
+                        component={Main} 
+                        onEditAvatar={handleEditAvatarClick}
+                        onEditProfile={handleEditProfileClick}
+                        onAddPlace={handleAddPlaceClick} 
+                        onCardClick={handleCardClick}
+                        cards={cards}
+                        onCardLike={handleCardLike}
+                        onCardDelete={handleCardDelete}
+                    />
                     <Route path="/sign-in">
                         <Login/>
                     </Route>
                     <Route path="/sign-up">
                         <Register/>
                     </Route>
+                    <Route> {/* если переходит по любому пути? */}
+                        {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+                    </Route>
                 </Switch>
-                <Footer/>
+
+                <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={true} onClose={closeAllPopups}/> {/* откуда брать перменную об саксессе? */}
 
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} onClose={closeAllPopups}/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups}/>

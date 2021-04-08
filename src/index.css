@@ -9,6 +9,15 @@
 /* header */
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
+/* navbar */
+@import url(./blocks/navbar/navbar.css);
+@import url(./blocks/navbar/__menu/navbar__menu.css);
+@import url(./blocks/navbar/__email/navbar__email.css);
+@import url(./blocks/navbar/__link/navbar__link.css);
+@import url(./blocks/navbar/__link/_active/navbar__link_active.css);
+/* menu-lable */
+@import url(./blocks/menu-lable/menu-lable.css);
+@import url(./blocks/menu-lable/__item/menu-lable__item.css);
 
 /* content */
 @import url(./blocks/content/content.css);
@@ -49,13 +58,26 @@
 @import url(./blocks/popup/_image/popup_image.css);
 @import url(./blocks/popup/__container/popup__container.css);
 @import url(./blocks/popup/__close-button/popup__close-button.css);
+@import url(./blocks/popup/__close-button/_type/_tip/popup__close-button_type_tip.css);
+@import url(./blocks/popup/__form-background/popup__form-background.css);
+@import url(./blocks/popup/__form-background/_type/_tip/popup__form-background_type_tip.css);
 @import url(./blocks/popup/__photo/popup__photo.css);
 @import url(./blocks/popup/__photo-name/popup__photo-name.css);
+@import url(./blocks/popup/__tip-icon/popup__tip-icon.css);
+@import url(./blocks/popup/__tip-text/popup__tip-text.css);
 
 /* form */
 @import url(./blocks/form/form.css);
 @import url(./blocks/form/__header/form__header.css);
+@import url(./blocks/form/__header/_type/_enter-page/form__header_type_enter-page.css);
 @import url(./blocks/form/__item/form__item.css);
+@import url(./blocks/form/__item/_type/_enter-page/form__item_type_enter-page.css);
 @import url(./blocks/form/__item-error/form__item-error.css);
 @import url(./blocks/form/__save-button/form__save-button.css);
+@import url(./blocks/form/__save-button/_type/_enter-page/form__save-button_type_enter-page.css);
 @import url(./blocks/form/__save-button/_invalid/form__save-button_invalid.css);
+
+/*redirection*/
+@import url(./blocks/redirection/redirection.css);
+@import url(./blocks/redirection/__text/redirection__text.css);
+@import url(./blocks/redirection/__link/redirection__link.css);

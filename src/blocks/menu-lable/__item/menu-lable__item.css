@@ -1,0 +1,11 @@
+.menu-lable__item {
+    margin: 0 0 8px 0;
+    border: none;
+    background-color: white;
+    color: white;
+    height: 3px;
+}
+
+.menu-lable__item:last-of-type {
+    margin: 0;
+}

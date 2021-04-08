@@ -1,0 +1,30 @@
+.navbar__menu {
+    display: none;
+}
+
+.navbar__menu:checked ~ .menu-lable .menu-lable__item {
+    height: 0;
+}
+
+.navbar__menu:checked ~ .menu-lable {
+    height: 30px;
+    width: 30px;
+    background-size: 42.4px 42.4px;
+    background-color: transparent;
+    background-image: url(../../../images/close_button.svg);
+    background-position: center;
+}
+
+.navbar__menu:checked ~ .navbar__email {
+    display: block;
+} 
+
+.navbar__menu:checked ~ .navbar__link {
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar__menu {
+        display: none;
+    }
+}

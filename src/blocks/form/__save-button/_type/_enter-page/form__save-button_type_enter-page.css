@@ -1,0 +1,22 @@
+.form__save-button_type_enter-page {
+    padding: 14px 0 14px;
+    margin: 143px 0 0;
+    width: calc(100% - 2*30px);
+    background-color: #FFFFFF;;
+    font-size: 16px;
+    line-height: calc(19/16*100%);
+    color: #000000;;
+}
+
+.form__save-button_type_enter-page:hover {
+    opacity: 0.85;
+}
+
+@media screen and (min-width: 768px) {
+    .form__save-button_type_enter-page {
+        margin: 188px 0 0;
+        width: 358px;
+        font-size: 18px;
+        line-height: calc(22/18*100%);
+    }   
+}

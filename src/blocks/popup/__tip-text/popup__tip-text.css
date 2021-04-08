@@ -1,0 +1,16 @@
+.popup__tip-text {
+    margin: 0 18px 50px;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: calc(24/20*100%);
+    text-align: center;
+    color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__tip-text{
+        margin: 0 36px 60px;
+        font-size: 24px;
+        line-height: calc(29/24*100%);
+    }
+}

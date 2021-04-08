@@ -1,0 +1,9 @@
+.popup__form-background_type_tip {
+    width: 280px;
+}
+
+@media screen and (min-width: 768px) {
+    .popup__form-background_type_tip {
+        width: 430px;
+    }
+}

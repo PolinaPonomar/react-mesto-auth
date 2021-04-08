@@ -1,0 +1,11 @@
+.redirection {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+    .redirection {
+        margin: 15px 0 0;
+    }
+}

@@ -1,0 +1,13 @@
+.form__item_type_enter-page {
+    width: calc(100% - 2*30px);
+    font-size: 14px;
+    line-height: calc(17/14*100%);
+    border-bottom: 1px solid rgba(204,204,204,1);
+    color:#FFFFFF;
+}
+
+@media screen and (min-width: 768px) {
+    .form__item_type_enter-page {
+        width: 358px;
+    }
+}
