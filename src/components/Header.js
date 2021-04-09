@@ -19,7 +19,7 @@ function Header(props) {
                             <hr className="menu-lable__item"></hr>
                         </label>
                         <p className="navbar__email">{props.email}</p>
-                        <Link to="/sign-in" className="navbar__link">Выйти</Link>
+                        <Link to="" onClick={props.onSignOut} className="navbar__link">Выйти</Link>
                     </>) 
                 : (<Link to={link} className="navbar__link navbar__link_active">{text}</Link>)
                 }

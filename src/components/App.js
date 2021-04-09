@@ -32,7 +32,6 @@ function App() {
 
     // Эффект, вызываемый при монтировании компонента
     useEffect( () => {
-        tokenCheck(); // проверка на наличие токена в локальном хранилище
         Promise.all([api.getUserInfo(), api.getInitialCards()])
             .then(([dataUserInfo, dataCards]) => {
                 // Добавление информации о пользователе с сервера на страницу:
@@ -44,6 +43,11 @@ function App() {
                 console.log(err);
             })
     }, [] )
+
+    // эффект, вызываемый при обновлении статуса, вошел пользователь или вышел. Человек сразу попадает на свой аккаунт, если не выходил + таким образом обновляется почта!
+    useEffect(() => {
+        tokenCheck(); // проверка на наличие токена в локальном хранилище
+    }, [loggedIn])
 
     const handleEditAvatarClick = () => {
         setIsEditAvatarPopupOpen(true);
@@ -102,7 +106,6 @@ function App() {
             if (jwt) { //если с токеном все ок  
                 auth.getContent(jwt)
                 .then((data) => {
-                    console.log(data.data.email);
                     if (data.data.email) { //проверяем, есть ли у пришедших данных емайл
                         setEmail(data.data.email); // заполняем емайл в шапке аккаунта пользователя
                         setLoggedIn(true); // открываем в аккаунт пользователя
@@ -114,6 +117,13 @@ function App() {
                 });
             }
         }
+    }
+
+    const handleSignOut = () => {
+        localStorage.removeItem('jwt');
+        setLoggedIn(false);
+        setEmail('');
+        history.push('/sign-in');
     }
 
     // блок работы после авторизации
@@ -193,7 +203,7 @@ function App() {
     return (
         < CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header loggedIn={loggedIn} email={email}/>
+                <Header loggedIn={loggedIn} email={email} onSignOut={handleSignOut}/>
                 <Switch>
                     <ProtectedRoute
                         exact path="/"
