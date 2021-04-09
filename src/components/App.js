@@ -4,6 +4,7 @@ import * as auth from '../utils/auth.js';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import ProtectedRoute from './ProtectedRoute';
+import MenuPopup from './MenuPopup';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -18,15 +19,18 @@ import ImagePopup from './ImagePopup';
 
 function App() {
     const history = useHistory();
+    const [currentUser, setCurrentUser] = useState({});
+    // стейты, касающиеся авторизации
     const [loggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('');
-    const [isInfoTooltipOpen,setIsInfoTooltipOpen] = useState(false); //описать, когда открывать
+    const [isInfoTooltipOpen,setIsInfoTooltipOpen] = useState(false);
     const [isRegistrationSuccessful, setRegistrationSuccessful] = useState(false);
-
-    const [currentUser, setCurrentUser] = useState({});
+    // стейты, касающиеся поп-апов
+    const [isMenuPopupOpen, setIsMenuPopupOpen] = useState(false);
     const [isEditAvatarPopupOpen,setIsEditAvatarPopupOpen] = useState(false);
     const [isEditProfilePopupOpen,setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen,setIsAddPlacePopupOpen] = useState(false);
+
     const [selectedCard,setSelectedCard] = useState({isOpen: false, link: '', name: ''});
     const [cards,setCards] = useState([]);
 
@@ -44,11 +48,14 @@ function App() {
             })
     }, [] )
 
-    // эффект, вызываемый при обновлении статуса, вошел пользователь или вышел. Человек сразу попадает на свой аккаунт, если не выходил + таким образом обновляется почта!
+    // Эффект, вызываемый при обновлении статуса, залогинен юзер или нет. Если залогинен - юзер сразу попадает на свой аккаунт + таким образом обновляется почта
     useEffect(() => {
-        tokenCheck(); // проверка на наличие токена в локальном хранилище
+        tokenCheck();
     }, [loggedIn])
 
+    const handleMenuClick = () => {
+        setIsMenuPopupOpen(true);
+    };
     const handleEditAvatarClick = () => {
         setIsEditAvatarPopupOpen(true);
     };
@@ -63,36 +70,38 @@ function App() {
     };
     const closeAllPopups = () => {
         setIsInfoTooltipOpen(false);
+        setIsMenuPopupOpen(false);
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setSelectedCard({isOpen: false});
     }
 
-    // блок работы с регистрацией, аутентификацией и авторизацией
+    // Регистрация
     const handleRegister = (inputs) => {
         auth.register(inputs)
             .then((data) => {
                 if (data) { // если с данными все ок
                     setRegistrationSuccessful(true);
-                    setIsInfoTooltipOpen(true);
+                    setIsInfoTooltipOpen(true); // выводим поп-ап с поздравлением
                     history.push('/sign-in');
                 }
             })
             .catch((err) => {
                 setRegistrationSuccessful(false);
-                setIsInfoTooltipOpen(true);
+                setIsInfoTooltipOpen(true); // выводим поп-ап с ошибкой
                 console.log(err);
             });
     }
 
+    // Авторизация
     const handleLogin = (inputs) => {
         auth.authorize(inputs)
             .then((data) => { 
                 if (data.token) { //проверяем, есть ли у пришедших данных токен
                     localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
-                    setLoggedIn(true); // открываем в аккаунт пользователя
-                    history.push('/') //переходим на аккаунт пользователя
+                    setLoggedIn(true);
+                    history.push('/');
                 }
             })
             .catch((err) => {
@@ -100,6 +109,7 @@ function App() {
             });
     }
 
+    // Проверка на наличие токена в локальном хранилище
     const tokenCheck = () => {
         if (localStorage.getItem('jwt')) {
             const jwt = localStorage.getItem('jwt');
@@ -108,8 +118,8 @@ function App() {
                 .then((data) => {
                     if (data.data.email) { //проверяем, есть ли у пришедших данных емайл
                         setEmail(data.data.email); // заполняем емайл в шапке аккаунта пользователя
-                        setLoggedIn(true); // открываем в аккаунт пользователя
-                        history.push('/') //переходим на аккаунт пользователя
+                        setLoggedIn(true);
+                        history.push('/');
                     }
                 })
                 .catch((err) => {
@@ -119,14 +129,18 @@ function App() {
         }
     }
 
+    // Выход из учетной записи
     const handleSignOut = () => {
         localStorage.removeItem('jwt');
+        setIsMenuPopupOpen(false); // закрыть меню для моб. версии
         setLoggedIn(false);
         setEmail('');
         history.push('/sign-in');
     }
 
-    // блок работы после авторизации
+
+    // Функции для работы с данными, отображающимися в аккаунте пользователя
+
     const handleUpdateUser = (inputs) => {
         api.setUserInfo(inputs)
             .then((updateUser) => {
@@ -203,7 +217,15 @@ function App() {
     return (
         < CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header loggedIn={loggedIn} email={email} onSignOut={handleSignOut}/>
+                <MenuPopup isOpen={isMenuPopupOpen} email={email} onSignOut={handleSignOut}/>
+                <Header 
+                    loggedIn={loggedIn} 
+                    email={email} 
+                    onSignOut={handleSignOut}
+                    onOpenMenuPopup = {handleMenuClick}
+                    onCloseMenuPopup = {closeAllPopups}
+                    isMenuPopupOpen = {isMenuPopupOpen}
+                />
                 <Switch>
                     <ProtectedRoute
                         exact path="/"
@@ -223,7 +245,7 @@ function App() {
                     <Route path="/sign-up">
                         <Register onRegister={handleRegister}/>
                     </Route>
-                    <Route> {/* если переходит по любому пути? */}
+                    <Route>
                         {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
                     </Route>
                 </Switch>

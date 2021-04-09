@@ -1,0 +1,24 @@
+.navbar__open-menu-button {
+    padding: 0;
+    height: 18px;
+    width: 24px;
+    border: none;
+    background-size: 24px 18px;
+    background-color: transparent;
+    background-image: url(../../../images/menu_button.svg);
+}
+
+.navbar__open-menu-button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.navbar__open-menu-button:focus {
+    outline: none;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar__open-menu-button {
+        display: none;
+    }
+}

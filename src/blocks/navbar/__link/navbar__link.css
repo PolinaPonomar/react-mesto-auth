@@ -1,6 +1,5 @@
 .navbar__link {
     display: none;
-    margin-left: 24px;
     font-weight: normal;
     font-size: 14px;
     line-height: calc(17/14*100%);
@@ -15,6 +14,7 @@
 @media screen and (min-width: 768px) {
     .navbar__link {
         display: block;
+        margin-left: 24px;
         font-size: 18px;
         line-height: calc(22/18*100%);
     }

@@ -1,0 +1,9 @@
+.navbar__popup-menu_opened {
+    display: flex;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar__popup-menu_opened {
+        display: none;
+    }
+}

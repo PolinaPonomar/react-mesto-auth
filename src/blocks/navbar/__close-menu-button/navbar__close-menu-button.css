@@ -1,0 +1,25 @@
+.navbar__close-menu-button {
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    border: none;
+    background-size: 42.4px 42.4px;
+    background-color: transparent;
+    background-image: url(../../../images/close_button.svg);
+    background-position: center;
+}
+
+.navbar__close-menu-button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.navbar__close-menu-button:focus {
+    outline: none;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar__close-menu-button {
+        display: none;
+    }
+}

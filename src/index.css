@@ -11,13 +11,15 @@
 @import url(./blocks/header/__logo/header__logo.css);
 /* navbar */
 @import url(./blocks/navbar/navbar.css);
-@import url(./blocks/navbar/__menu/navbar__menu.css);
+@import url(./blocks/navbar/__open-menu-button/navbar__open-menu-button.css);
+@import url(./blocks/navbar/__close-menu-button/navbar__close-menu-button.css);
 @import url(./blocks/navbar/__email/navbar__email.css);
+@import url(./blocks/navbar/__email/_visible/navbar__email_visible.css);
 @import url(./blocks/navbar/__link/navbar__link.css);
-@import url(./blocks/navbar/__link/_active/navbar__link_active.css);
-/* menu-lable */
-@import url(./blocks/menu-lable/menu-lable.css);
-@import url(./blocks/menu-lable/__item/menu-lable__item.css);
+@import url(./blocks/navbar/__link/_visible/navbar__link_visible.css);
+@import url(./blocks/navbar/__link/_popup-menu/navbar__link_popup-menu.css);
+@import url(./blocks/navbar/__popup-menu/navbar__popup-menu.css);
+@import url(./blocks/navbar/__popup-menu/_opened/navbar__popup-menu_opened.css);
 
 /* content */
 @import url(./blocks/content/content.css);
