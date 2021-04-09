@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import * as auth from '../utils/auth.js';
 import { api } from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -17,8 +17,11 @@ import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 
 function App() {
+    const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false);
+    const [email, setEmail] = useState('');
     const [isInfoTooltipOpen,setIsInfoTooltipOpen] = useState(false); //описать, когда открывать
+    const [isRegistrationSuccessful, setRegistrationSuccessful] = useState(false);
 
     const [currentUser, setCurrentUser] = useState({});
     const [isEditAvatarPopupOpen,setIsEditAvatarPopupOpen] = useState(false);
@@ -62,10 +65,30 @@ function App() {
     }
 
     // блок работы с регистрацией, аутентификацией и авторизацией
-    function handleRegister (inputs) {
+    const handleRegister = (inputs) => {
         auth.register(inputs)
-            .then((res) => {
-                console.log(res);
+            .then((data) => {
+                if (data) { // если с данными все ок
+                    setRegistrationSuccessful(true);
+                    setIsInfoTooltipOpen(true);
+                    history.push('/sign-in');
+                }
+            })
+            .catch((err) => {
+                setRegistrationSuccessful(false);
+                setIsInfoTooltipOpen(true);
+                console.log(err);
+            });
+    }
+
+    const handleLogin = (inputs) => {
+        auth.authorize(inputs)
+            .then((data) => { 
+                if (data.token) { // если данные пришли именно в том виде, в кот. ждали (с ними все ок )
+                    localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
+                    setLoggedIn(true); // открываем в аккаунт пользователя
+                    history.push('/') //переходим на аккаунт пользователя
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -73,7 +96,7 @@ function App() {
     }
 
     // блок работы после авторизации
-    function handleUpdateUser (inputs) {
+    const handleUpdateUser = (inputs) => {
         api.setUserInfo(inputs)
             .then((updateUser) => {
                 setCurrentUser(updateUser);
@@ -84,7 +107,7 @@ function App() {
             })
     }
 
-    function handleUpdateAvatar (inputAvatar) {
+    const handleUpdateAvatar = (inputAvatar) => {
         api.changeAvatar(inputAvatar)
             .then((updateUser) => {
                 setCurrentUser(updateUser);
@@ -95,7 +118,7 @@ function App() {
             })
     }
 
-    function handleCardLike (card) {
+    const handleCardLike = (card) => {
         // Проверяем, есть ли уже лайк на этой карточке
         const isLiked = card.likes.some(liker => liker._id === currentUser._id);
         if (!isLiked) {
@@ -121,7 +144,7 @@ function App() {
         }
     }
 
-    function handleCardDelete (card) {
+    const handleCardDelete = (card) => {
         // Определяем, являемся ли мы владельцем карточки
         const isOwn = card.owner._id === currentUser._id;
         if (isOwn) {
@@ -135,7 +158,7 @@ function App() {
         }
     }
 
-    function handleAddPlaceSubmit (card) {
+    const handleAddPlaceSubmit = (card) => {
         api.postNewCard(card)
             .then((newCard) => {
                 setCards([newCard, ...cards]);
@@ -164,7 +187,7 @@ function App() {
                         onCardDelete={handleCardDelete}
                     />
                     <Route path="/sign-in">
-                        <Login/>
+                        <Login onLogin={handleLogin}/>
                     </Route>
                     <Route path="/sign-up">
                         <Register onRegister={handleRegister}/>
@@ -175,7 +198,7 @@ function App() {
                 </Switch>
                 <Footer/>
 
-                <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={true} onClose={closeAllPopups}/> {/* откуда брать перменную об саксессе? */}
+                <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={isRegistrationSuccessful} onClose={closeAllPopups}/> {/* откуда брать перменную об саксессе? */}
 
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} onClose={closeAllPopups}/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups}/>
