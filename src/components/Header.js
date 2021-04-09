@@ -3,8 +3,8 @@ import logo from '../images/logo.svg';
 
 function Header(props) {
     const location = useLocation().pathname; // определяем, на какой странице находимся
-    const text = (location === "/sign-in") ? "Регистрация" : (location === "/sign-up" && "Войти");
-    const link = (location === "/sign-in") ? "/sign-up" :  (location === "/sign-up" && "/sign-in");
+    const text = (location === "/sign-in") ? "Регистрация" : "Войти";
+    const link = (location === "/sign-in") ? "/sign-up" : "/sign-in";
 
     return (
         <header className="header">
