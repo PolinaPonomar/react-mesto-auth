@@ -32,6 +32,7 @@ function App() {
 
     // Эффект, вызываемый при монтировании компонента
     useEffect( () => {
+        tokenCheck(); // проверка на наличие токена в локальном хранилище
         Promise.all([api.getUserInfo(), api.getInitialCards()])
             .then(([dataUserInfo, dataCards]) => {
                 // Добавление информации о пользователе с сервера на страницу:
@@ -84,7 +85,7 @@ function App() {
     const handleLogin = (inputs) => {
         auth.authorize(inputs)
             .then((data) => { 
-                if (data.token) { // если данные пришли именно в том виде, в кот. ждали (с ними все ок )
+                if (data.token) { //проверяем, есть ли у пришедших данных токен
                     localStorage.setItem('jwt', data.token); // сохраняем токен пользователя
                     setLoggedIn(true); // открываем в аккаунт пользователя
                     history.push('/') //переходим на аккаунт пользователя
@@ -93,6 +94,26 @@ function App() {
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    const tokenCheck = () => {
+        if (localStorage.getItem('jwt')) {
+            const jwt = localStorage.getItem('jwt');
+            if (jwt) { //если с токеном все ок  
+                auth.getContent(jwt)
+                .then((data) => {
+                    console.log(data.data.email);
+                    if (data.data.email) { //проверяем, есть ли у пришедших данных емайл
+                        setEmail(data.data.email); // заполняем емайл в шапке аккаунта пользователя
+                        setLoggedIn(true); // открываем в аккаунт пользователя
+                        history.push('/') //переходим на аккаунт пользователя
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+            }
+        }
     }
 
     // блок работы после авторизации
@@ -172,7 +193,7 @@ function App() {
     return (
         < CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header loggedIn={loggedIn}/>
+                <Header loggedIn={loggedIn} email={email}/>
                 <Switch>
                     <ProtectedRoute
                         exact path="/"
@@ -198,7 +219,7 @@ function App() {
                 </Switch>
                 <Footer/>
 
-                <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={isRegistrationSuccessful} onClose={closeAllPopups}/> {/* откуда брать перменную об саксессе? */}
+                <InfoTooltip isOpen={isInfoTooltipOpen} isRegistrationSuccessful={isRegistrationSuccessful} onClose={closeAllPopups}/>
 
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onUpdateAvatar={handleUpdateAvatar} onClose={closeAllPopups}/>
                 <EditProfilePopup isOpen={isEditProfilePopupOpen} onUpdateUser={handleUpdateUser} onClose={closeAllPopups}/>
