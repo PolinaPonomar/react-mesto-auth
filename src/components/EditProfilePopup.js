@@ -31,7 +31,7 @@ function EditProfilePopup(props) {
         if (currentUser.about) {
             setDescription(currentUser.about);
         }
-    }, [currentUser]);
+    }, [currentUser, props.isOpen]);
 
     return (
         <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onSubmit={handleSubmit} onClose={props.onClose}>
