@@ -10,7 +10,7 @@ function Main(props) {
         <main className="content">
 
             <section className="profile">
-                <div className="profile__avatar-wrapper" onClick={props.onOpenMenuPopup}>
+                <div className="profile__avatar-wrapper" onClick={props.onEditAvatar}>
                     <div className="profile__avatar" style={{ backgroundImage: `url(${currentUser.avatar})` }}></div>
                     <div className="profile__avatar-change"></div>
                 </div>
